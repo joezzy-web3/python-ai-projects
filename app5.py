@@ -39,7 +39,7 @@ if user_prompt := st.chat_input("Ask about real-time topics..."):
                     
                     # Enable Google Search Tool for live grounding
                     response = client.models.generate_content(
-                        model='gemini-2.0-flash',
+                        model='gemini-2.5-flash',
                         contents=user_prompt,
                         config=types.GenerateContentConfig(
                             tools=[types.Tool(google_search=types.GoogleSearch())]
