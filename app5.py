@@ -32,14 +32,15 @@ if user_prompt := st.chat_input("Ask about real-time topics..."):
         st.chat_message("user").markdown(user_prompt)
         st.session_state.search_chat_history.append({"role": "user", "content": user_prompt})
 
-       # Enable Google Search Tool for live grounding
+        with st.chat_message("assistant"):
+            with st.spinner("Searching the web..."):
+                try:
+                    client = genai.Client(api_key=api_key)
+                    
+                    # Enable Google Search Tool for live grounding
                     response = client.models.generate_content(
                         model='gemini-3.6-flash',
                         contents=user_prompt,
-                        config=types.GenerateContentConfig(
-                            tools=[types.Tool(google_search=types.GoogleSearch())]
-                        )
-                    )
                         config=types.GenerateContentConfig(
                             tools=[types.Tool(google_search=types.GoogleSearch())]
                         )
